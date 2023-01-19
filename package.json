@@ -1,0 +1,17 @@
+{
+  "name": "dapp-testing-program",
+  "version": "1.0.0",
+  "description": "A program for testing DAPP",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mocha": "^7.1.2",
+    "chai": "^4.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha app.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
