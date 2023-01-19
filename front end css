@@ -1,0 +1,38 @@
+/* CSS for the UI/UX design */
+body {
+    background-color: black;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#code-input {
+    width: 100%;
+    min-height: 200px;
+    padding: 10px;
+    margin-bottom: 20px;
+    color: white;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    resize: none;
+}
+
+#submit-code, #test-code {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.2em;
+    background-color: black;
+    color: white;
+    border: none;
+}
+#submit-code:hover, #test-code:hover{
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
