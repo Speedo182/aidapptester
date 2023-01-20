@@ -1,3 +1,2 @@
 web: python back_end.py
-worker: npm start
-web: nginx -g "daemon off;"
+worker: node front_end.js
