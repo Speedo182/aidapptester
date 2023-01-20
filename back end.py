@@ -1,16 +1,9 @@
 import os
-import sys
 import re
-import subprocess
+from subprocess import run, PIPE
+from flask import Flask, request
 
-def main():
-    print("Code input complete. Type 'test' to begin testing.")
-    while True:
-        command = input("Enter command: ")
-        if command == "test":
-            deploy_test()
-        elif command == "exit":
-            sys.exit()
+app = Flask(__name__)
 
 def save_code(code):
     with open("dapp_code.txt", "a") as file:
@@ -26,6 +19,30 @@ def deploy_test():
         extract_solidity_code(code)
     elif re.search(r"function", code):
         extract_javascript_code(code)
+    elif re.search(r"fn main", code):
+        extract_rust_code(code)
+    elif re.search(r"import", code):
+        extract_go_code(code)
+    elif re.search(r"module", code):
+        extract_haskell_code(code)
+    elif re.search(r"func", code):
+        extract_golang_code(code)
+    elif re.search(r"class", code):
+        extract_csharp_code(code)
+    elif re.search(r"#include", code):
+        extract_cplusplus_code(code)
+    elif re.search(r"require", code):
+        extract_ruby_code(code)
+    elif re.search(r"public class", code):
+        extract_java_code(code)
+    elif re.search(r"new contract", code):
+        extract_rholang_code(code)
+    elif re.search(r"<?php", code):
+        extract_php_code(code)
+    elif re.search(r"SELECT", code):
+        extract_sql_code(code)
+    elif re.search(r"using", code):
+        extract_csharp_code(code)
     else:
         print("Unable to detect code type.")
 
@@ -34,16 +51,10 @@ def extract_solidity_code(code):
         file.write(code)
     try:
         # Compile the contract
-        result = subprocess.run(["solc", "contract.sol"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        if result.returncode != 0:
-            raise ValueError(f"solc command failed. Error: {result.stderr.decode()}")
+        subprocess.run(["solc", "contract.sol"], stdout=PIPE, stderr=PIPE, check=True)
         # Run test on local blockchain
-        result = subprocess.run(["ganache-cli"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        if result.returncode != 0:
-            raise ValueError(f"ganache-cli command failed. Error: {result.stderr.decode()}")
-        result = subprocess.run(["truffle", "test"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        if result.returncode != 0:
-            raise ValueError(f"truffle test command failed. Error: {result.stderr.decode()}")
+        subprocess.run(["ganache-cli"], stdout=PIPE, stderr=PIPE, check=True)
+        subprocess.run(["truffle", "test"], stdout=PIPE, stderr=PIPE, check=True)
         print("Test successful.")
     except Exception as e:
         print("Error: ", e)
@@ -53,22 +64,41 @@ def extract_javascript_code(code):
         file.write(code)
     try:
         # Install dependencies
-        result = subprocess.run(["npm", "install"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        if result.returncode != 0:
-            raise ValueError(f"npm install command failed. Error: {result.stderr.decode()}")
+        subprocess.run(["npm", "install"], stdout=PIPE, stderr=PIPE, check=True)
         # Run tests
-        result = subprocess.run(["mocha", "app.js"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        if result.returncode != 0:
-            raise ValueError(f"mocha command failed. Error: {result.stderr.decode()}")
+        subprocess.run(["mocha", "app.js"], stdout=PIPE, stderr=PIPE, check=True)
         print("Test successful.")
     except Exception as e:
         print("Error: ", e)
 
-if name == "main":
-    while True:
-        code = input("Enter code: ")
-        save_code(code)
-        more_code = input("Do you have more code? (yes/no) ")
-        if more_code == "no":
-            break
-    main()
+def extract_rust_code(code):
+    with open("main.rs", "w") as file:
+        file.write(code)
+    try:
+        # Run tests
+        subprocess.run(["cargo", "test"], stdout=PIPE, stderr=PIPE, check=True)
+        print("Test successful.")
+    except Exception as e:
+        print("Error: ", e)
+
+def extract_go_code(code):
+    with open("main.go", "w") as file:
+        file.write(code)
+    try:
+        # Run tests
+        subprocess.run(["go", "test"], stdout=PIPE, stderr=PIPE, check=True)
+        print("Test successful.")
+    except Exception as e:
+        print("Error: ", e)
+
+def extract_haskell_code(code):
+    with open("Main.hs", "w") as file:
+        file.write(code)
+    try:
+        # Run tests
+        subprocess.run(["stack", "test"], stdout=PIPE, stderr=PIPE, check=True)
+        print("Test successful.")
+    except Exception as e:
+        print("Error: ", e)
+
+# and so on for the rest of the languages
