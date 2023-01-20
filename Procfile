@@ -1,2 +1,2 @@
 web: python back_end.py
-worker: node front_end.js
+worker: npm run worker
