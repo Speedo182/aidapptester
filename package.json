@@ -1,19 +1,22 @@
 {
-  "name": "dapp-testing-program",
-  "version": "1.0.0",
-  "description": "A program for testing DAPP",
-  "main": "app.js",
-  "dependencies": {
-    "express": "^4.17.1",
-    "mocha": "^7.1.2",
-    "chai": "^4.2.0",
-    "body-parser": "^1.19.0",
-    "request": "^2.88.2"
-  },
-  "scripts": {
-    "start": "node app.js",
-    "test": "mocha app.js"
-  },
-  "author": "",
-  "license": "ISC"
+"name": "dapp-testing-program",
+"version": "1.0.0",
+"description": "A program for testing DAPP",
+"main": "app.js",
+"dependencies": {
+"express": "^4.17.1",
+"mocha": "^7.1.2",
+"chai": "^4.2.0",
+"body-parser": "^1.19.0",
+"request": "^2.88.2",
+"heroku-buildpack-nginx": "^1.0.0",
+"heroku/nodejs": "^14.12.0",
+"heroku/python": "^3.9.1"
+},
+"scripts": {
+"start": "node app.js",
+"test": "mocha app.js"
+},
+"author": "",
+"license": "ISC"
 }
