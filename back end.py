@@ -34,10 +34,16 @@ def extract_solidity_code(code):
         file.write(code)
     try:
         # Compile the contract
-        subprocess.run(["solc", "contract.sol"])
+        result = subprocess.run(["solc", "contract.sol"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if result.returncode != 0:
+            raise ValueError(f"solc command failed. Error: {result.stderr.decode()}")
         # Run test on local blockchain
-        subprocess.run(["ganache-cli"])
-        subprocess.run(["truffle", "test"])
+        result = subprocess.run(["ganache-cli"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if result.returncode != 0:
+            raise ValueError(f"ganache-cli command failed. Error: {result.stderr.decode()}")
+        result = subprocess.run(["truffle", "test"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if result.returncode != 0:
+            raise ValueError(f"truffle test command failed. Error: {result.stderr.decode()}")
         print("Test successful.")
     except Exception as e:
         print("Error: ", e)
@@ -47,9 +53,13 @@ def extract_javascript_code(code):
         file.write(code)
     try:
         # Install dependencies
-        subprocess.run(["npm", "install"])
+        result = subprocess.run(["npm", "install"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if result.returncode != 0:
+            raise ValueError(f"npm install command failed. Error: {result.stderr.decode()}")
         # Run tests
-        subprocess.run(["mocha", "app.js"])
+        result = subprocess.run(["mocha", "app.js"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if result.returncode != 0:
+            raise ValueError(f"mocha command failed. Error: {result.stderr.decode()}")
         print("Test successful.")
     except Exception as e:
         print("Error: ", e)
