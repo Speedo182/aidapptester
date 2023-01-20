@@ -14,6 +14,6 @@
     "start": "node app.js",
     "test": "mocha app.js"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Your Name",
+  "license": "MIT"
 }
