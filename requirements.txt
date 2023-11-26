@@ -5,3 +5,4 @@ solc==0.7.0
 eth-keyfile>=0.6.0 # not directly required, pinned by Snyk to avoid a vulnerability
 setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
 websockets>=10.0 # not directly required, pinned by Snyk to avoid a vulnerability
+eth-abi>=4.2.0 # not directly required, pinned by Snyk to avoid a vulnerability
